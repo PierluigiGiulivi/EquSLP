@@ -263,7 +263,7 @@ def TestOdd():
         
 
 
-def TestPremium():
+def TestPremium(c):
     
     """
     Applies EquSLP to a+b*c^(2^n) vs. a+b*c^(2^(n-1))
@@ -272,7 +272,7 @@ def TestPremium():
     n = 64
     a = 0
     b = 1
-    c = 2
+    #c = 3
     
     # [2^(i - 1), 2^(i) - 1] where i is in [u-1,v]
     u = 8 
@@ -372,5 +372,29 @@ def TestPremium():
 #TestOdd3()
 #TestOdd5() 
 #TestFactorial()
-#TestOdd()  
-TestPremium()   
+#TestOdd() 
+TestPremium(2) 
+TestPremium(3)
+TestPremium(5)
+TestPremium(7) 
+TestPremium(11) 
+TestPremium(13) 
+TestPremium(17)
+TestPremium(19)
+TestPremium(23) 
+TestPremium(29) 
+TestPremium(31) 
+TestPremium(37) 
+TestPremium(41) 
+TestPremium(43) 
+TestPremium(47) 
+TestPremium(53)
+TestPremium(59) 
+TestPremium(61) 
+TestPremium(67) 
+TestPremium(71) 
+TestPremium(73) 
+TestPremium(79) 
+TestPremium(83) 
+TestPremium(89) 
+TestPremium(97) 

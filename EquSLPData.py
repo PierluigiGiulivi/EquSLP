@@ -191,7 +191,7 @@ def RandomProbabilityLimited(X,Y,fname,u,v):
             R = randint(2**(i - 1), 2**(i) - 1)
             
             if EquSLP(X,Y,R):
-                S += 12
+                S += 1
 
         with open(fname, mode='a') as f:
             f_w = csv.writer(f, delimiter=',', quotechar='"', 
