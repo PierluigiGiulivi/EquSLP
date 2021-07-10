@@ -53,7 +53,6 @@ for (i in c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 
         
         jpeg(file=paste('0+1*', i, '^(2^64).jpg', sep = ""), 
              res=600, width=4800, height=4800)
-             #, pointsize=10, type="windows", antialias="cleartype")
         
         # Create the plot
         plot(x = data$bits,
@@ -101,3 +100,55 @@ for (i in c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 
         
         dev.off()
 }
+
+
+
+##################################
+# Data Analysis: All
+##################################
+globalData = data.frame(Group.1 = integer(), x = integer())
+
+for (i in c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)){
+        
+        data = read.table(paste('0+1*', i, '^(2^64).csv', sep = ""), header=T, sep=',') # reads data
+        globalData = rbind(globalData, aggregate(data[, 4], list(data$bits), mean))
+}
+
+jpeg(file= 'all.jpg', 
+     res=600, width=4800, height=4800)
+
+# Define the position of tick marks
+v1 <- c(8,12,16,20,24,28,32)
+
+# Define the labels of tick marks
+v2 <- c("8","12","16","20","24","28","32")
+
+# Mean Data
+meandata = aggregate(globalData[, 2], list(globalData$Group.1), mean)
+
+# Create the plot
+plot(x = meandata[,1],
+     y =  meandata[,2], 
+     type="o",
+     pch=15,
+     xaxt = "n",
+     xlim =c(8,32), 
+     ylim =c(0,0.8),
+     main = "Number of Bits of Random Component against the Global Probability of Failure",
+     sub = paste('0+1*', i, '^(2^64)', sep = ""),
+     xlab ="Number of Bits of Random Component", 
+     ylab ="Global Probability of Failure")
+
+# Add an axis to the plot 
+axis(side = 1, 
+     at = v1, 
+     labels = v2,
+     tck=-.05)
+
+# Add reference line
+abline(h=0.00,col="green")
+
+# Add Legend
+legend("topright", legend= "Probability = 0", col= "green", lty=1:1, cex=1)
+
+dev.off()
