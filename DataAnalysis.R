@@ -41,7 +41,7 @@ legend("topright", legend=c("Probability = 0"), col=c("green"), lty=1, cex=1)
 ##################################
 # Data Analysis: 0+1*2^(2^64).csv
 ##################################
-for (i in c(2,3,5)){
+for (i in c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)){
         
         data = read.table(paste('0+1*', i, '^(2^64).csv', sep = ""), header=T, sep=',') # reads data
         
