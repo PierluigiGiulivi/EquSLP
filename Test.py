@@ -263,17 +263,13 @@ def TestOdd():
         
 
 
-def TestPremium(c):
+def TestPremium(a,b,c):
     
     """
     Applies EquSLP to a+b*c^(2^n) vs. a+b*c^(2^(n-1))
     vs. a+b*c^(2^(n-2)) vs. ... vs. a+b*c^(2^(1))
     """
     n = 64
-    a = 0
-    b = 1
-    #c = 3
-    
     # [2^(i - 1), 2^(i) - 1] where i is in [u-1,v]
     u = 8 
     v = 32 
@@ -373,28 +369,39 @@ def TestPremium(c):
 #TestOdd5() 
 #TestFactorial()
 #TestOdd() 
-TestPremium(2) 
-TestPremium(3)
-TestPremium(5)
-TestPremium(7) 
-TestPremium(11) 
-TestPremium(13) 
-TestPremium(17)
-TestPremium(19)
-TestPremium(23) 
-TestPremium(29) 
-TestPremium(31) 
-TestPremium(37) 
-TestPremium(41) 
-TestPremium(43) 
-TestPremium(47) 
-TestPremium(53)
-TestPremium(59) 
-TestPremium(61) 
-TestPremium(67) 
-TestPremium(71) 
-TestPremium(73) 
-TestPremium(79) 
-TestPremium(83) 
-TestPremium(89) 
-TestPremium(97) 
+TestPremium(0,3,2)
+TestPremium(0,5,2) 
+TestPremium(0,7,2) 
+TestPremium(0,11,2) 
+
+TestPremium(0,2,3) 
+TestPremium(0,5,3) 
+TestPremium(0,7,3) 
+TestPremium(0,11,3) 
+
+TestPremium(0,2,5) 
+TestPremium(0,3,5) 
+TestPremium(0,7,5) 
+TestPremium(0,11,5)
+ 
+TestPremium(0,2,7) 
+TestPremium(0,3,7) 
+TestPremium(0,5,7) 
+TestPremium(0,11,7) 
+
+TestPremium(0,2,11)
+TestPremium(0,3,11) 
+TestPremium(0,5,11) 
+TestPremium(0,7,11) 
+
+TestPremium(1,1,2) 
+TestPremium(2,1,2)
+TestPremium(3,1,2) 
+TestPremium(4,1,2) 
+TestPremium(5,1,2) 
+TestPremium(6,1,2) 
+TestPremium(7,1,2) 
+TestPremium(8,1,2) 
+TestPremium(9,1,2)   
+
+# 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97
