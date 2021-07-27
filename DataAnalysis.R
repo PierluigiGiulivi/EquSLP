@@ -251,6 +251,78 @@ for (i in c("1+1*2^(2^64)","2+1*2^(2^64)","3+1*2^(2^64)","4+1*2^(2^64)",
 
 
 
+##########################################################
+# Data Analysis: 0+1*prime^(2^64) vs. 0+1*prime^(2^64).csv
+##########################################################
+for (i in c('0+1*2^(2^64) vs. 0+1*3^(2^64)', '0+1*2^(2^64) vs. 0+1*5^(2^64)',
+            '0+1*2^(2^64) vs. 0+1*7^(2^64)', '0+1*2^(2^64) vs. 0+1*11^(2^64)',
+            '0+1*3^(2^64) vs. 0+1*5^(2^64)', '0+1*3^(2^64) vs. 0+1*7^(2^64)',
+            '0+1*3^(2^64) vs. 0+1*11^(2^64)', '0+1*5^(2^64) vs. 0+1*7^(2^64)',
+            '0+1*5^(2^64) vs. 0+1*11^(2^64)', '0+1*7^(2^64) vs. 0+1*11^(2^64)')){
+        
+        data = read.table(paste(i,'.csv', sep = ""),
+                          header=T, sep=',')
+        
+        # Define the position of tick marks
+        v1 <- c(8,12,16,20,24,28,32)
+        
+        # Define the labels of tick marks
+        v2 <- c("8","12","16","20","24","28","32")
+        
+        jpeg(file = paste(i,'.jpg', sep = ""), 
+             res = 600, width = 4800, height = 4800)
+        
+        # Create the plot
+        plot(x = data$bits,
+             y = data$proba, 
+             col = gray(.4, .4),
+             pch = 16,
+             xaxt = "n",
+             xlim =c(8,32), 
+             ylim =c(0,0.1),
+             main = "Number of Bits of Random Component 
+                        against the Probability of Failure",
+             sub = i,
+             xlab ="Number of Bits of Random Component", 
+             ylab ="Probability of Failure")
+        
+        # Add an axis to the plot 
+        axis(side = 1, 
+             at = v1, 
+             labels = v2,
+             tck=-.05)
+        
+        # Add reference line
+        abline(h=0.00,col="green")
+        
+        par(new=T) # superpose plots
+        
+        # Mean Data
+        meandata = aggregate(data[, 4], list(data$bits), mean)
+        
+        # Create the plot
+        plot(x = meandata[,1],
+             y =  meandata[,2], 
+             type="o",
+             pch=15,
+             xaxt = "n",
+             yaxt = "n",
+             col="red",
+             xlim =c(8,32), 
+             ylim =c(0,0.1),
+             main = "", 
+             xlab ="", 
+             ylab ="")
+        
+        # Add Legend
+        legend("topright", legend = c("Average Probability","Probability = 0"),
+               col = c("red", "green"), lty = 1:1, cex = 1)
+        
+        dev.off()
+}
+
+
+
 ####################
 # Data Analysis: All
 ####################
@@ -303,3 +375,102 @@ legend("topright", legend = "Probability = 0",
        col = "green", lty = 1:1, cex = 1)
 
 dev.off()
+
+
+
+#################################################
+# Data Analysis Len vs Bits: 0+1*prime^(2^64).csv
+#################################################
+for (i in c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 
+            43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)){
+        
+        data0 = read.table(paste('0+1*', i, '^(2^64).csv', sep = ""),
+                          header=T, sep=',')
+        
+        
+        
+        # we see that not necesarily goes down linearly can go up but generally it is decreasing fun
+        
+        data0 = read.table(paste('0+1*', 5, '^(2^64).csv', sep = ""),
+                           header=T, sep=',')
+        
+        maxproba = aggregate(proba~bits, data0, max)
+        
+        data = data0[data0$proba == maxproba$proba,]
+        
+        data = data[order(data$proba),] 
+        
+        data
+        
+        cor(data$bits, data$proba, method = 'pearson')
+        
+        model = lm(data$proba ~ data$bits)
+        summary(model)
+        
+        model = lm(data$proba ~ data$bits + I(data$bits^2))
+        summary(model)
+ 
+        
+        
+        
+        
+        
+        
+        data = aggregate(data[, 3], list(data$lenX), min)
+        
+        
+        
+        jpeg(file = paste('0+1*', i, '^(2^64).jpg', sep = ""), 
+             res = 600, width = 4800, height = 4800)
+        
+        
+        
+        
+        
+        # Create the plot
+        plot(x = data$bits,
+             y = data$proba, 
+             col = gray(.4, .4),
+             pch = 16,
+             xaxt = "n",
+             xlim =c(8,32), 
+             ylim =c(0,0.8),
+             main = "Number of Bits of Random Component 
+                        against the Probability of Failure",
+             sub = paste('0+1*', i, '^(2^64)', sep = ""),
+             xlab ="Number of Bits of Random Component", 
+             ylab ="Probability of Failure")
+        
+        # Add an axis to the plot 
+        axis(side = 1, 
+             at = v1, 
+             labels = v2,
+             tck=-.05)
+        
+        # Add reference line
+        abline(h=0.00,col="green")
+        
+        par(new=T) # superpose plots
+        
+       
+        
+        # Create the plot
+        plot(x = meandata[,1],
+             y =  meandata[,2], 
+             type="o",
+             pch=15,
+             xaxt = "n",
+             yaxt = "n",
+             col="red",
+             xlim =c(8,32), 
+             ylim =c(0,0.8),
+             main = "", 
+             xlab ="", 
+             ylab ="")
+        
+        # Add Legend
+        legend("topright", legend = c("Average Probability","Probability = 0"),
+               col = c("red", "green"), lty = 1:1, cex = 1)
+        
+        dev.off()
+}

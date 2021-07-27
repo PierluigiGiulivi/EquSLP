@@ -70,7 +70,7 @@ def TotalProbability(X,Y):
     """
     TotalProbability checks every integer in ranges of 
     [2^(i - 1), 2^(i) - 1] up to 2^(2^(n-1)) - 1 
-    where n is the size of the SLP. 
+    where n+1 is the size of the SLP. 
     The ranges correspond to all the integers 
     that can be represented using i bits.
     It calculates the probablity of failure of each range.

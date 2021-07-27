@@ -9,116 +9,6 @@ import csv
 
 
 
-def Test1():
-    
-    """
-    Applies EquSLP to 2^(2^n) vs. 2^(2^(n-1))
-    """
-    n = 20 # n = #gates of Y and n-1 = #gates of X 
-   
-    X = [1, (0,0,"+")]
-    
-    Y = [1, (0,0,"+"), (1,1,"*")]
-    
-    for i in range(1,n):  # defines the size of X and Y
-    
-        #TotalProbability(X,Y)
-        RandomProbability(X,Y)
-        #TotalProbabilityLimited(X,Y)
-            
-        if i == n-1:
-            break  
-        
-        X.append((i,i,'*'))
-        
-        Y.append((i+1,i+1,'*'))
-      
-        
-
-def Test2():
-    
-    """
-    Applies EquSLP to 2 * 2^(2^n) vs. 2^(2^n)
-    """
-    n = 11 # n = #gates of Y and n-1 = #gates of X 
-   
-    X = [1, (0,0,"+")]
-    
-    Y = [1, (0,0,"+"), (1,1,"*")]
-    
-    for i in range(1,n):  # defines the size of X and Y
-    
-        #TotalProbability(X,Y)
-        #RandomProbability(X,Y)
-        TotalProbabilityLimited(X,Y)
-            
-        if i == n-1:
-            break  
-
-        X.append((i,i,'*'))
-        
-        Y.pop() # remove las element aka *2 the whole SLP
-        Y.append((i,i,'*'))
-        Y.append((i+1,1,'*')) # add *2 the whole SLP
-
-
-
-def Test3():
-    
-    """
-    Applies EquSLP to 2^(2^n) vs. 2^(2^n) + 1
-    """
-    n = 11 # n = #gates of Y and n-1 = #gates of X 
-   
-    X = [1, (0,0,"+")]
-    
-    Y = [1, (0,0,"+"), (1,0,"+")]
-    
-    for i in range(1,n):  # defines the size of X and Y
-    
-        #TotalProbability(X,Y)
-        #RandomProbability(X,Y)
-        TotalProbabilityLimited(X,Y)
-            
-        if i == n-1:
-            break  
-
-        X.append((i,i,'*'))
-        
-        Y.pop() # remove las element aka +1 the whole SLP
-        Y.append((i,i,'*'))
-        Y.append((i+1,0,'+')) # add +1 the whole SLP
-
-
-
-def Test4():
-    
-    """
-    Applies EquSLP to 2^(2^n) vs. 2^(2^n) + 2
-    """
-    n = 11 # n = #gates of Y and n-1 = #gates of X 
-   
-    X = [1, (0,0,"+")]
-
-    Y = [1, (0,0,"+"), (1,1,"+")]
-    
-    for i in range(1,n):  # defines the size of X and Y
-    
-        #TotalProbability(X,Y)
-        #RandomProbability(X,Y)
-        TotalProbabilityLimited(X,Y)
-            
-        if i == n-1:
-            break  
-
-        X.append((i,i,'*'))
-        
-        Y.pop() # remove las element aka +2 the whole SLP
-        Y.append((i,i,'*'))
-        Y.append((i+1,1,'+')) # add +2 the whole SLP
-        
-
-
 def Test5():
     
     """
@@ -145,55 +35,8 @@ def Test5():
 
 
 
-def TestOdd3():
-    
-    """
-    Applies EquSLP to 3^(2^n) vs. 2^(2^n)
-    """
-    n = 11 # n = #gates of Y and n-1 = #gates of X 
-   
-    X = [1, (0,0,"+")]
-    
-    Y = [1, (0,0,"+"), (1,0,"+")]
-    
-    for i in range(1,n):  # defines the size of X and Y
-    
-        #TotalProbability(X,Y)
-        #RandomProbability(X,Y)
-        TotalProbabilityLimited(X,Y)
-            
-        if i == n-1:
-            break  
-
-        X.append((i,i,'*'))
-        
-        Y.append((i+1,i+1,'*'))
 
 
-
-def TestOdd5():
-    
-    """
-    Applies EquSLP to 5^(2^n) vs. 2^(2^n)
-    """
-    n = 11 # n+1 = #gates of Y and n-1 = #gates of X 
-   
-    X = [1, (0,0,"+")]
-    
-    Y = [1, (0,0,"+"), (1,0,"+"), (2,1,"+")]
-    
-    for i in range(1,n):  # defines the size of X and Y
-    
-        #TotalProbability(X,Y)
-        #RandomProbability(X,Y)
-        TotalProbabilityLimited(X,Y)
-            
-        if i == n-1:
-            break  
-  
-        X.append((i,i,'*'))
-            
-        Y.append((i+2,i+2,'*'))
 
 
 
@@ -237,44 +80,25 @@ def TestFactorial():
 
     
 
-def TestOdd():
-    
-    """
-    Applies EquSLP to 3^(2^n) vs. 5^(2^n)
-    """
-    n = 40 # n+1 = #gates of Y and n = #gates of X 
-   
-    X = [1, (0,0,"+"), (1,0,"+")]
-    
-    Y = [1, (0,0,"+"), (1,0,"+"), (2,1,"+")]
-    
-    for i in range(1,n):  # defines the size of X and Y
-    
-        #TotalProbability(X,Y)
-        #RandomProbability(X,Y)
-        TotalProbabilityLimited(X,Y)
-            
-        if i == n-1:
-            break  
-  
-        X.append((i+1,i+1,'*'))
-
-        Y.append((i+2,i+2,'*'))
-        
 
 
-def TestPremium(a,b,c):
+def TestPremiumA(a,b,c):
     
     """
-    Applies EquSLP to a+b*c^(2^n) vs. a+b*c^(2^(n-1))
-    vs. a+b*c^(2^(n-2)) vs. ... vs. a+b*c^(2^(1))
+    Applies EquSLP to: 
+    - a+b*c^(2^n) vs. { a+b*c^(2^(n-1)) ; a+b*c^(2^(n-2)) ; ... ; a+b*c^(2^1) }
+    - a+b*c^(2^(n-1)) vs. { a+b*c^(2^(n-2)) ; a+b*c^(2^(n-3)) ; ... ; a+b*c^(2^1) }
+    - ...
+    - a+b*c^(2^2) vs. a+b*c^(2^1)
     """
+    
+    # iterations = (n^2 - n) / 2
     n = 64
     # [2^(i - 1), 2^(i) - 1] where i is in [u-1,v]
     u = 8 
     v = 32 
    
-    if n < 1 or a < 0 or b < 1 or c < 1:
+    if n < 1 or a < 0 or b < 1 or c < 1 or u < 1 or v < u:
         return False
 
     fname = str(a)+"+"+str(b)+"*"+str(c)+"^(2^"+str(n)+").csv"
@@ -357,51 +181,394 @@ def TestPremium(a,b,c):
                 Y.append((Y[-1][0]+1,a-1,'+'))
                 
             X = X[:len(X)-3] 
+                
+
+
+def TestPremiumB(a,b,c,x,y,z):
+    
+    """
+    Applies EquSLP to:
+    - a+b*c^(2^n) vs. { x+y*z^(2^n) ; x+y*z^(2^(n-1)) ; ... ; x+y*z^(2^(1)) }
+    - a+b*c^(2^(n-1) vs. { x+y*z^(2^n) ; x+y*z^(2^(n-1)) ; ... ; x+y*z^(2^(1)) }
+    - ...
+    - a+b*c^(2^1) vs. { x+y*z^(2^n) ; x+y*z^(2^(n-1)) ; ... ; x+y*z^(2^(1)) }   
+    """
+    
+    # iterations = n^2
+    n = 64
+    # [2^(i - 1), 2^(i) - 1] where i is in [u-1,v]
+    u = 8 
+    v = 32 
+   
+    if n < 1 or a < 0 or b < 1 or c < 1 or x < 0 or y < 1 or z < 1 or u < 1 or v < u or (a == x and b == y and c == z):
+        return False
+
+    fname = str(a)+"+"+str(b)+"*"+str(c)+"^(2^"+str(n)+") vs. "+str(x)+"+"+str(y)+"*"+str(z)+"^(2^"+str(n)+").csv"
+    
+    header = ['lenX', 'lenY', "bits", "proba"]
+    
+    with open(fname, mode='w') as f:
+        f_w = csv.writer(f, delimiter=',', 
+                         quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        f_w.writerow(header)
+
+    
+    X = [1]
+    for i in range(max(a,b,c)-1):
+        
+        X.append((i,0,'+'))
+          
+    Y = [1]
+    for i in range(max(x,y,z)-1):
+        
+        Y.append((i,0,'+'))
+        
+    
+    
+    if a == 0 and b == 1:
         
         
+        if x == 0 and y == 1:
+        
+            for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                    
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+        
+            
+        elif x == 0 and y > 1:
+            
+            for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    Y.append((Y[-1][0]+1,y-1,'*'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                    Y.pop()
+                    
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+        
+             
+        elif x > 0 and y == 1:
+            
+            for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    Y.append((Y[-1][0]+1,x-1,'+'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                    Y.pop()
+                    
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+        
+    
+        else:
+            
+               for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    Y.append((Y[-1][0]+1,y-1,'*'))
+                    Y.append((Y[-1][0]+1,x-1,'+'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                    Y = Y[:len(Y)-2]
+                    
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
 
-#Test1()
-#Test2()
-#Test3()
-#Test4()
-#Test5()
-#TestOdd3()
-#TestOdd5() 
-#TestFactorial()
-#TestOdd() 
-TestPremium(0,3,2)
-TestPremium(0,5,2) 
-TestPremium(0,7,2) 
-TestPremium(0,11,2) 
 
-TestPremium(0,2,3) 
-TestPremium(0,5,3) 
-TestPremium(0,7,3) 
-TestPremium(0,11,3) 
 
-TestPremium(0,2,5) 
-TestPremium(0,3,5) 
-TestPremium(0,7,5) 
-TestPremium(0,11,5)
- 
-TestPremium(0,2,7) 
-TestPremium(0,3,7) 
-TestPremium(0,5,7) 
-TestPremium(0,11,7) 
+    if a == 0 and b > 1:
+        
+        
+        if x == 0 and y == 1:
+        
+            for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                X.append((X[-1][0]+1,b-1,'*'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                
+                X.pop()
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+                        
+        
+        elif x == 0 and y > 1:
+            
+            for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                X.append((X[-1][0]+1,b-1,'*'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    Y.append((Y[-1][0]+1,y-1,'*'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                    Y.pop()
+                
+                X.pop()
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+        
+             
+        elif x > 0 and y == 1:
+            
+            for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                X.append((X[-1][0]+1,b-1,'*'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    Y.append((Y[-1][0]+1,x-1,'+'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                    Y.pop()
+                
+                X.pop()
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+        
+    
+        else:
+            
+               for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                X.append((X[-1][0]+1,b-1,'*'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    Y.append((Y[-1][0]+1,y-1,'*'))
+                    Y.append((Y[-1][0]+1,x-1,'+'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                    Y = Y[:len(Y)-2]
+                
+                X.pop()
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
 
-TestPremium(0,2,11)
-TestPremium(0,3,11) 
-TestPremium(0,5,11) 
-TestPremium(0,7,11) 
 
-TestPremium(1,1,2) 
-TestPremium(2,1,2)
-TestPremium(3,1,2) 
-TestPremium(4,1,2) 
-TestPremium(5,1,2) 
-TestPremium(6,1,2) 
-TestPremium(7,1,2) 
-TestPremium(8,1,2) 
-TestPremium(9,1,2)   
 
+    if a > 0 and b == 1:
+        
+        
+        if x == 0 and y == 1:
+        
+            for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                X.append((X[-1][0]+1,a-1,'+'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                
+                X.pop()
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+                        
+        
+        elif x == 0 and y > 1:
+            
+            for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                X.append((X[-1][0]+1,a-1,'+'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    Y.append((Y[-1][0]+1,y-1,'*'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                    Y.pop()
+                
+                X.pop()
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+        
+             
+        elif x > 0 and y == 1:
+            
+            for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                X.append((X[-1][0]+1,a-1,'+'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    Y.append((Y[-1][0]+1,x-1,'+'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                    Y.pop()
+                
+                X.pop()
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+        
+    
+        else:
+            
+               for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                X.append((X[-1][0]+1,a-1,'+'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    Y.append((Y[-1][0]+1,y-1,'*'))
+                    Y.append((Y[-1][0]+1,x-1,'+'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                    Y = Y[:len(Y)-2]
+                
+                X.pop()
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+        
+                
+        
+    else:
+        
+        if x == 0 and y == 1:
+        
+            for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                X.append((X[-1][0]+1,b-1,'*'))
+                X.append((X[-1][0]+1,a-1,'+'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                
+                X = X[:len(X)-2]
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+                        
+        
+        elif x == 0 and y > 1:
+            
+            for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                X.append((X[-1][0]+1,b-1,'*'))
+                X.append((X[-1][0]+1,a-1,'+'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    Y.append((Y[-1][0]+1,y-1,'*'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                    Y.pop()
+                
+                X = X[:len(X)-2]
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+        
+             
+        elif x > 0 and y == 1:
+            
+            for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                X.append((X[-1][0]+1,b-1,'*'))
+                X.append((X[-1][0]+1,a-1,'+'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    Y.append((Y[-1][0]+1,x-1,'+'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                    Y.pop()
+                
+                X = X[:len(X)-2]
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+        
+        
+        else:
+            
+               for i in range(n):
+                
+                X.append((c-1+i,c-1+i,'*'))
+                X.append((X[-1][0]+1,b-1,'*'))
+                X.append((X[-1][0]+1,a-1,'+'))
+                
+                for j in range(n):
+                
+                    Y.append((z-1+j,z-1+j,'*'))
+                    Y.append((Y[-1][0]+1,y-1,'*'))
+                    Y.append((Y[-1][0]+1,x-1,'+'))
+                    RandomProbabilityLimited(X,Y,fname,u,v)
+                    Y = Y[:len(Y)-2]
+                
+                X = X[:len(X)-2]
+                Y = [1]
+                for k in range(max(x,y,z)-1):
+                    
+                    Y.append((k,0,'+'))
+    
+        
+
+        
+TestPremiumB(3,3,2,2,2,3)
+          
 # 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97
