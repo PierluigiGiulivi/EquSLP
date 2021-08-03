@@ -391,7 +391,7 @@ for (i in c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,
         
         # we see that not necesarily goes down linearly can go up but generally it is decreasing fun
         
-        data0 = read.table(paste('0+1*', 5, '^(2^64).csv', sep = ""),
+        data0 = read.table(paste('0+1*', 2, '^(2^64).csv', sep = ""),
                            header=T, sep=',')
         
         maxproba = aggregate(proba~bits, data0, max)
@@ -400,7 +400,22 @@ for (i in c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,
         
         data = data[order(data$proba),] 
         
+        data$"6.5/b" = 6.5/data$bits 
+        data$"0.384/b" = 0.384/data$bits
+        
         data
+        
+        
+        
+        meandata = aggregate(proba~bits, data0, mean)
+        
+        meandata$"coeff/b" = mean(meandata$bits * meandata$proba) / meandata$bits
+        
+        meandata$"1/exp(b)" = meandata$bits / exp(meandata$bits)
+        
+        meandata
+        
+        
         
         cor(data$bits, data$proba, method = 'pearson')
         
@@ -474,3 +489,33 @@ for (i in c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,
         
         dev.off()
 }
+
+
+#################################################
+# X-Y size vs. proba
+#################################################
+for (i in c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 
+            43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)){
+        
+        data0 = read.table(paste('0+1*', i, '^(2^64).csv', sep = ""),
+                           header=T, sep=',')
+        
+
+        
+        data = read.table(paste('0+1*', 3, '^(2^64).csv', sep = ""),
+                           header=T, sep=',')
+        
+ 
+        data = data[data$bits == 8,]
+        data = data[data$lenX == 66,]
+        data = data[data$lenY == 6,]
+        data = data[data$lenX - data$lenY == 60,]
+        
+        sizediff = data$lenX - data$lenY
+
+        plot(sizediff, data$proba)
+        
+
+}
+
+
