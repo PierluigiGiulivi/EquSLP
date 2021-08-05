@@ -11,8 +11,7 @@ from random import seed
 from random import randint
 seed(8) 
 
-TEST = 1000 # number of times to run test in specific range
-
+runs = 1000 # number of times to run test in specific range
 
 
 def EquSLP(X,Y,R):
@@ -120,7 +119,7 @@ def RandomProbability(X,Y):
     # checks in blocks of size [2^(i - 1), 2^(i) - 1]
     
         S = 0 # total number of integers that give a worng result
-        for _ in range(TEST):
+        for _ in range(runs):
             
             # generate random integer
             R = randint(2**(i - 1), 2**(i) - 1)
@@ -128,7 +127,7 @@ def RandomProbability(X,Y):
             if EquSLP(X,Y,R):
                 S += 1
             
-        probability = S / TEST
+        probability = S / runs
         print('Range: [ 2 ^',i-1,', 2 ^',i,')',
               'Random Probability = ',probability,  file=f)
     
@@ -185,7 +184,7 @@ def RandomProbabilityLimited(X,Y,fname,u,v):
     # checks in blocks of size [2^(i - 1), 2^(i) - 1]
     
         S = 0 # total number of integers that give a worng result
-        for _ in range(TEST):
+        for _ in range(runs):
             
             # generate random integer
             R = randint(2**(i - 1), 2**(i) - 1)
@@ -196,4 +195,4 @@ def RandomProbabilityLimited(X,Y,fname,u,v):
         with open(fname, mode='a') as f:
             f_w = csv.writer(f, delimiter=',', quotechar='"', 
                              quoting=csv.QUOTE_MINIMAL)
-            f_w.writerow([len(X), len(Y), i, S / TEST ])         
+            f_w.writerow([len(X), len(Y), i, S / runs ])         
