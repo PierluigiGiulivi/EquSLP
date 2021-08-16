@@ -4,7 +4,7 @@
 import math
 
 
-"""
+
 X=2**16 + 10
 Y=2**16 
 Z = X - Y
@@ -48,9 +48,8 @@ print("fails:",fails)
 print("factorsZ:",factorsZ)
     
 
-# 1, 1+1, 2+1, 3*3
-# 1, 1+1, 2*2, 4*4, 16+4, 20+4
-"""
+
+
 
 """
 X = [1, (0,0,"+"), (1,0,"+"), (2,1,"+"), (3,1,"+"), (1,1,"*"), (5,5,"*"), 
@@ -94,8 +93,8 @@ def get_prime_factors(number):
     return prime_factors
 
 
-X = 2
-print(get_prime_factors(X))
+#X = 2
+#print(get_prime_factors(X))
 # [2, 2, 3, 7]
 
 """
@@ -117,6 +116,8 @@ print(EquSLP(X,Y))
 print((time.time() - timer), " seconds")
 
 """
+
+
 
 
 

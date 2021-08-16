@@ -36,56 +36,10 @@ def Test5():
 
 
 
-
-
-
-
-def TestFactorial():
-    
-    """
-    Applies EquSLP to n!n vs. (n+1)! vs. n!
-    """
-    
-    # X = 8!8, Y = 9!, W = 8!
-    
-    X = [1, (0, 0, '+'), (1, 0, '+'), (2, 1, '+'), (3, 1, '+'), (1, 1, '*'), (5, 5, '*'), (6, 6, '*'), (7, 5, '*'), (2, 2, '*'), (8, 9, '*'), (10, 3, '*'), (11, 4, '*')]
-    
-    Y = [1, (0, 0, '+'), (1, 0, '+'), (2, 1, '+'), (3, 1, '+'), (1, 1, '*'), (5, 5, '*'), (6, 5, '*'), (7, 1, '*'), (2, 2, '*'), (9, 9, '*'), (8, 10, '*'), (11, 3, '*'), (12, 4, '*')]
-    
-    W = [1, (0, 0, '+'), (1, 0, '+'), (2, 1, '+'), (3, 1, '+'), (1, 1, '*'), (5, 5, '*'), (6, 5, '*'), (7, 1, '*'), (2, 2, '*'), (8, 9, '*'), (10, 3, '*'), (11, 4, '*')]
-    
-    """
-    Applies EquSLP to n!n vs. (n+1)!
-    """
-    # n = 8, X = n!n, Y = (n+1)!, W = n!
-   
-    X = [1, (0,0,"+"), (1,0,"+"), (2,1,"+"), (3,1,"+"), (1,1,"*"), (5,5,"*"), (6,6,"*"), (7,5,"*"), (2,2,"*"), (8,9,"*"), (10,3,"*"), (11,4,"*")] 
-    
-    Y = [1, (0,0,"+"), (1,0,"+"), (2,1,"+"), (3,1,"+"), (1,1,"*"), (5,5,"*"), (6,5,"*"), (7,1,"*"), (2,2,"*"), (9,9,"*"), (8,10,"*"), (11,3,"*"), (12,4,"*")]
-    
-    W = [1, (0,0,"+"), (1,0,"+"), (2,1,"+"), (3,1,"+"), (1,1,"*"), (5,5,"*"), (6,5,"*"), (7,1,"*"), (2,2,"*"), (8,9,"*"), (10,3,"*"), (11,4,"*")]
-    
-    #RandomProbability(X,Y)
-    #RandomProbability(X,W)
-    #RandomProbability(Y,W)
-    TotalProbabilityLimited(X,Y)
-    TotalProbabilityLimited(X,W)
-    TotalProbabilityLimited(Y,W)
-    #RandomProbability(X,Y)
-    #RandomProbability(X,W)
-    #RandomProbability(Y,W)
-    TotalProbabilityLimited(X,Y)
-    TotalProbabilityLimited(X,W)
-    TotalProbabilityLimited(Y,W)
-
-    
-
-
-
 def TestPremiumA(a,b,c):
     
     """
-    Applies EquSLP to: 
+    Applies EquSLPData to: 
     - a+b*c^(2^n) vs. { a+b*c^(2^(n-1)) ; a+b*c^(2^(n-2)) ; ... ; a+b*c^(2^1) }
     - a+b*c^(2^(n-1)) vs. { a+b*c^(2^(n-2)) ; a+b*c^(2^(n-3)) ; ... ; a+b*c^(2^1) }
     - ...
@@ -182,12 +136,13 @@ def TestPremiumA(a,b,c):
                 
             X = X[:len(X)-3] 
                 
+    
 
 
 def TestPremiumB(a,b,c,x,y,z):
     
     """
-    Applies EquSLP to:
+    Applies EquSLPData to:
     - a+b*c^(2^n) vs. { x+y*z^(2^n) ; x+y*z^(2^(n-1)) ; ... ; x+y*z^(2^(1)) }
     - a+b*c^(2^(n-1) vs. { x+y*z^(2^n) ; x+y*z^(2^(n-1)) ; ... ; x+y*z^(2^(1)) }
     - ...
@@ -213,6 +168,7 @@ def TestPremiumB(a,b,c,x,y,z):
         f_w.writerow(header)
 
     
+
     X = [1]
     for i in range(max(a,b,c)-1):
         
@@ -565,10 +521,3 @@ def TestPremiumB(a,b,c,x,y,z):
                 for k in range(max(x,y,z)-1):
                     
                     Y.append((k,0,'+'))
-    
-        
-
-        
-TestPremiumB(3,3,2,2,2,3)
-          
-# 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97

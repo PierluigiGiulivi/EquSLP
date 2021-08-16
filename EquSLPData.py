@@ -178,8 +178,7 @@ def RandomProbabilityLimited(X,Y,fname,u,v):
     that can be represented using i bits.
     It calculates the probablity of failure of each range.
     """
-
-    data = [len(X), len(Y)]    
+   
     for i in range(u, v + 1): 
     # checks in blocks of size [2^(i - 1), 2^(i) - 1]
     
