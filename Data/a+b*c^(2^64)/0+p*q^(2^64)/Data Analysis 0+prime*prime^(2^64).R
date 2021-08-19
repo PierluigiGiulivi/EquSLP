@@ -1,14 +1,13 @@
-######################################################
-# Data Analysis: 0+1*prime^(2^64) vs. 0+1*prime^(2^64)
-######################################################
-for (i in c('0+1*2^(2^64) vs. 0+1*3^(2^64)', '0+1*2^(2^64) vs. 0+1*5^(2^64)',
-            '0+1*2^(2^64) vs. 0+1*7^(2^64)', '0+1*2^(2^64) vs. 0+1*11^(2^64)',
-            '0+1*3^(2^64) vs. 0+1*5^(2^64)', '0+1*3^(2^64) vs. 0+1*7^(2^64)',
-            '0+1*3^(2^64) vs. 0+1*11^(2^64)', '0+1*5^(2^64) vs. 0+1*7^(2^64)',
-            '0+1*5^(2^64) vs. 0+1*11^(2^64)', '0+1*7^(2^64) vs. 0+1*11^(2^64)')){
+#####################################
+# Data Analysis: 0+prime*prime^(2^64)
+#####################################
+for (i in c("0+2*3^(2^64)","0+2*5^(2^64)","0+2*7^(2^64)","0+2*11^(2^64)",
+            "0+3*2^(2^64)","0+3*5^(2^64)","0+3*7^(2^64)","0+3*11^(2^64)",
+            "0+5*2^(2^64)","0+5*3^(2^64)","0+5*7^(2^64)","0+5*11^(2^64)",
+            "0+7*2^(2^64)","0+7*3^(2^64)","0+7*5^(2^64)","0+7*11^(2^64)",
+            "0+11*2^(2^64)","0+11*3^(2^64)","0+11*5^(2^64)","0+11*7^(2^64)")){
   
-  data = read.table(paste(i,'.csv', sep = ""),
-                    header=T, sep=',')
+  data = read.table(paste(i, '.csv', sep = ""), header=T, sep=',')
   
   # Define the position of tick marks
   v1 <- c(8,12,16,20,24,28,32)
@@ -16,7 +15,7 @@ for (i in c('0+1*2^(2^64) vs. 0+1*3^(2^64)', '0+1*2^(2^64) vs. 0+1*5^(2^64)',
   # Define the labels of tick marks
   v2 <- c("8","12","16","20","24","28","32")
   
-  jpeg(file = paste(i,'.jpg', sep = ""), 
+  jpeg(file = paste(i, '.jpg', sep = ""), 
        res = 600, width = 4800, height = 4800)
   
   # Create the plot
@@ -28,7 +27,7 @@ for (i in c('0+1*2^(2^64) vs. 0+1*3^(2^64)', '0+1*2^(2^64) vs. 0+1*5^(2^64)',
        xlim =c(8,32), 
        ylim =c(0,0.8),
        main = "Number of Bits of Random Component 
-               against the Probability of Failure",
+                     against the Probability of Failure",
        sub = i,
        xlab ="Number of Bits of Random Component", 
        ylab ="Probability of Failure")
@@ -66,12 +65,12 @@ for (i in c('0+1*2^(2^64) vs. 0+1*3^(2^64)', '0+1*2^(2^64) vs. 0+1*5^(2^64)',
        ylab ="")
   
   # Add Legend
-  legend("topright", legend = c("Average Probability","Probability = 0"),
+  legend("topright", legend=c("Average Probability", "Probability = 0"),
          col = c("red", "green"), lty = 1:1, cex = 1)
   
   dev.off()
   
-  if (i == '0+1*2^(2^64) vs. 0+1*3^(2^64)') {
+  if (i == "0+2*3^(2^64)") {
     total = meandata
   } else {
     total = rbind(total, meandata)
@@ -90,7 +89,7 @@ v2 <- c("8","12","16","20","24","28","32")
 x = c(8:32)
 y = 1/x
 
-jpeg(file = 'all-0+1*prime^(2^64) vs. 0+1*prime^(2^64).jpg', res = 600, 
+jpeg(file = 'all-0+prime*prime^(2^64).jpg', res = 600, 
      width = 4800, height = 4800)
 
 # create the plot 
@@ -104,7 +103,7 @@ plot(x = total$bits,
      col="red",
      main = "Number of Bits of Random Component
              against the Mean Probability of Failure",
-     sub = "0+1*prime^(2^64) vs. 0+1*prime^(2^64)",
+     sub = "0+prime*prime^(2^64)",
      xlab ="Number of Bits of Random Component", 
      ylab ="Mean Probability of Failure")
 
@@ -133,7 +132,7 @@ plot(x,
      ylab ="")
 
 # Add Legend
-legend("topright", legend = c("1/x","Probability = 0"),
-       col = c("black", "green"), lty = 1:1, cex = 1)
+legend("topright", legend = c("Mean Probability","1/x","Probability = 0"),
+       col = c("red","black", "green"), lty = 1:1, cex = 1)
 
 dev.off()

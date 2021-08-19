@@ -6,33 +6,29 @@ Test is made of many functions that represent different tests.
 
 from EquSLPData import *
 import csv
+import math
 
 
-
-def Test5():
+def TotalValue(X):
     
     """
-    Applies EquSLP to 2^(2^n) vs. 2^n
+    Calculates the explicit value of an SLP X
     """
-    n = 12 # n-1 = #gates of Y and n-1 = #gates of X 
-   
-    X = [1, (0,0,"+")]
     
-    Y = [1, (0,0,"+")]
-    
-    for i in range(1,n):  # defines the size of X and Y
-    
-        #TotalProbability(X,Y)
-        #RandomProbability(X,Y)
-        TotalProbabilityLimited(X,Y)
-            
-        if i == n-1:
-            break  
-
-        X.append((i,i,'*'))
+    # first gate is always 1
+    totalX = [1]
         
-        Y.append((i,1,'*'))
-
+    for i in range(1,len(X)):
+      
+        if X[i][2] == "*":
+            
+            totalX.append((totalX[X[i][0]] * totalX[X[i][1]]))
+                
+        elif X[i][2] == "+":
+                
+            totalX.append((totalX[X[i][0]] + totalX[X[i][1]]))
+        
+    return totalX[-1]
 
 
 
@@ -40,8 +36,10 @@ def TestPremiumA(a,b,c):
     
     """
     Applies EquSLPData to: 
-    - a+b*c^(2^n) vs. { a+b*c^(2^(n-1)) ; a+b*c^(2^(n-2)) ; ... ; a+b*c^(2^1) }
-    - a+b*c^(2^(n-1)) vs. { a+b*c^(2^(n-2)) ; a+b*c^(2^(n-3)) ; ... ; a+b*c^(2^1) }
+    - a+b*c^(2^n) vs. { a+b*c^(2^(n-1)) ; a+b*c^(2^(n-2)) 
+                       ; ... ; a+b*c^(2^1) }
+    - a+b*c^(2^(n-1)) vs. { a+b*c^(2^(n-2)) ; a+b*c^(2^(n-3)) 
+                           ; ... ; a+b*c^(2^1) }
     - ...
     - a+b*c^(2^2) vs. a+b*c^(2^1)
     """
@@ -57,12 +55,10 @@ def TestPremiumA(a,b,c):
 
     fname = str(a)+"+"+str(b)+"*"+str(c)+"^(2^"+str(n)+").csv"
     
-    header = ['lenX', 'lenY', "bits", "proba"]
-    
     with open(fname, mode='w') as f:
         f_w = csv.writer(f, delimiter=',', 
                          quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        f_w.writerow(header)
+        f_w.writerow(['lenX', 'lenY', "bits", "proba"])
 
 
     X = [1]
@@ -138,15 +134,17 @@ def TestPremiumA(a,b,c):
                 
     
 
-
 def TestPremiumB(a,b,c,x,y,z):
     
     """
     Applies EquSLPData to:
-    - a+b*c^(2^n) vs. { x+y*z^(2^n) ; x+y*z^(2^(n-1)) ; ... ; x+y*z^(2^(1)) }
-    - a+b*c^(2^(n-1) vs. { x+y*z^(2^n) ; x+y*z^(2^(n-1)) ; ... ; x+y*z^(2^(1)) }
+    - a+b*c^(2^n) vs. { x+y*z^(2^n) ; x+y*z^(2^(n-1)) 
+                       ; ... ; x+y*z^(2^(1)) }
+    - a+b*c^(2^(n-1) vs. { x+y*z^(2^n) ; x+y*z^(2^(n-1)) 
+                          ; ... ; x+y*z^(2^(1)) }
     - ...
-    - a+b*c^(2^1) vs. { x+y*z^(2^n) ; x+y*z^(2^(n-1)) ; ... ; x+y*z^(2^(1)) }   
+    - a+b*c^(2^1) vs. { x+y*z^(2^n) ; x+y*z^(2^(n-1)) 
+                       ; ... ; x+y*z^(2^(1)) }   
     """
     
     # iterations = n^2
@@ -155,18 +153,17 @@ def TestPremiumB(a,b,c,x,y,z):
     u = 8 
     v = 32 
    
-    if n < 1 or a < 0 or b < 1 or c < 1 or x < 0 or y < 1 or z < 1 or u < 1 or v < u or (a == x and b == y and c == z):
+    if (n < 1 or a < 0 or b < 1 or c < 1 or x < 0 or y < 1 or 
+        z < 1 or u < 1 or v < u or (a == x and b == y and c == z)):
         return False
 
-    fname = str(a)+"+"+str(b)+"*"+str(c)+"^(2^"+str(n)+") vs. "+str(x)+"+"+str(y)+"*"+str(z)+"^(2^"+str(n)+").csv"
-    
-    header = ['lenX', 'lenY', "bits", "proba"]
-    
+    fname = str(a)+"+"+str(b)+"*"+str(c)+"^(2^"+str(n)+") vs. "
+    +str(x)+"+"+str(y)+"*"+str(z)+"^(2^"+str(n)+").csv"
+  
     with open(fname, mode='w') as f:
         f_w = csv.writer(f, delimiter=',', 
                          quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        f_w.writerow(header)
-
+        f_w.writerow(['lenX', 'lenY', "bits", "proba"])
     
 
     X = [1]
@@ -177,8 +174,7 @@ def TestPremiumB(a,b,c,x,y,z):
     Y = [1]
     for i in range(max(x,y,z)-1):
         
-        Y.append((i,0,'+'))
-        
+        Y.append((i,0,'+'))  
     
     
     if a == 0 and b == 1:

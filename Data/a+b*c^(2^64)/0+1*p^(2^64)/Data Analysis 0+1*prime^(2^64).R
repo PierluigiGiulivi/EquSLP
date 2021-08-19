@@ -131,7 +131,7 @@ plot(x,
      ylab ="")
 
 # Add Legend
-legend("topright", legend = c("1/x","Probability = 0"),
-       col = c("black", "green"), lty = 1:1, cex = 1)
+legend("topright", legend = c("Mean Probability","1/x","Probability = 0"),
+       col = c("red","black", "green"), lty = 1:1, cex = 1)
 
 dev.off()

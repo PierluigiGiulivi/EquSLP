@@ -1,7 +1,7 @@
 #########################
 # Data Analysis: Divisors
 #########################
-for (i in c(20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32)){
+for (i in c(20, 21, 22, 23, 24, 25)){
   
   data = read.table(paste('divisors', i, '.csv', sep = ""), header=T, sep=',')
   
@@ -19,12 +19,12 @@ for (i in c(20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32)){
 total = aggregate(divisors~bits, total, mean)
 
 # Define the position of tick marks
-v1 <- c(0,4,8,12,16,20,24,28,32)
+v1 <- c(0,4,8,12,16,20,24)
 
 # Define the labels of tick marks
-v2 <- c("0","4","8","12","16","20","24","28","32")
+v2 <- c("0","4","8","12","16","20","24")
 
-x = c(1:33)
+x = c(1:25)
 y = 1/x
 
 jpeg(file = 'divisors.jpg', res = 600, width = 4800, height = 4800)
@@ -34,13 +34,13 @@ plot(x = total$bits,
      y = total$divisors, 
      type="o",
      pch=15,
-     xlim =c(0,33), 
-     ylim =c(0,1),
+     xlim =c(0,25), 
+     ylim =c(0,max(total$divisors)),
      xaxt = "n",
      col="red",
      main = "Number of Bits of Divisor against the 
              Average Proability of Divisor in Range",
-     sub = '1 to 2^(2^5)',
+     sub = '1 to 18694273',
      xlab ="Number of Bits of Divisor", 
      ylab ="Average Proability of Divisor in Range")
 
@@ -62,8 +62,8 @@ plot(x,
      pch=15,
      xaxt = "n",
      yaxt = "n",
-     xlim =c(0,33), 
-     ylim =c(0,1),
+     xlim =c(0,25), 
+     ylim =c(0,max(total$divisors)),
      main = "", 
      xlab ="", 
      ylab ="")
