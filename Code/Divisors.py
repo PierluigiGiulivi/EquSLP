@@ -43,13 +43,39 @@ def divisors(n):
         yield factor
 
 
-
-"""
-Creates csv file with the number tested, the bit range and
-the amount of divisors in that bit range
-"""
-import csv
-
+def distribution(name,test):
+    
+    """
+    Creates csv file with the number tested, the bit range and
+    the amount of divisors in that bit range
+    """
+    import csv
+    
+    # create csv file and add header
+    with open(name+".csv", mode='w') as f:
+        f_w = csv.writer(f, delimiter=',', quotechar='"', 
+                         quoting=csv.QUOTE_MINIMAL)
+        f_w.writerow(["num", "bits", "divisors"])
+             
+    
+    # range of values we are testing
+    for num in test:
+    
+        # translate divisors to their bit length
+        bit_length = []
+        for i in list(divisors(num)):
+            bit_length.append(i.bit_length())
+         
+        # count how many in each bit range
+        for i in range(1, num.bit_length() + 1):
+            
+            with open(name+".csv", mode='a') as f:
+                f_w = csv.writer(f, delimiter=',', quotechar='"', 
+                                 quoting=csv.QUOTE_MINIMAL)
+                f_w.writerow([num,i,
+                    bit_length.count(i)/(2**i - 2**(i-1))]) 
+            
+            
 # list form: https://oeis.org/A002201/b002201.txt
 SHCN =[2, 
        6, 
@@ -91,26 +117,8 @@ SHCN =[2,
        834847537218397120145170159146926496000,
        69292345589126960972049123209194899168000]
 
+test = range(1, 18694273 + 1)
+ 
+distribution("divisors",test)
 
-# create csv file and add header
-with open("HCN.csv", mode='w') as f:
-    f_w = csv.writer(f, delimiter=',', quotechar='"', 
-                     quoting=csv.QUOTE_MINIMAL)
-    f_w.writerow(["num", "bits", "divisors"])
-         
-
-# range of values we are testing
-for num in SHCN:
-
-    # translate divisors to their bit length
-    bit_length = []
-    for i in list(divisors(num)):
-        bit_length.append(i.bit_length())
-     
-    # count how many in each bit range
-    for i in range(1, num.bit_length() + 1):
-        
-        with open("HCN.csv", mode='a') as f:
-            f_w = csv.writer(f, delimiter=',', quotechar='"', 
-                             quoting=csv.QUOTE_MINIMAL)
-            f_w.writerow([num, i, bit_length.count(i) / (2**i - 2**(i-1))]) 
+distribution("HCN",SHCN)
